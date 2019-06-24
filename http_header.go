@@ -6,7 +6,7 @@ type HTTPHeader http.Header
 
 var _ TextMap = HTTPHeader{}
 
-func (h HTTPHeader) ForEach(handler func(key, val string) error) error {
+func (h HTTPHeader) ForEachKey(handler func(key, val string) error) error {
 	for k, v := range h {
 		for _, v2 := range v {
 			if err := handler(k, v2); err != nil {
