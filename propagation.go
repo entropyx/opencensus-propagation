@@ -22,7 +22,7 @@ const (
 
 type TextMap interface {
 	Set(key string, value string)
-	ForEachKey(func(key string, value string) error) error
+	ForeachKey(func(key string, value string) error) error
 }
 
 func Extract(format Format, carrier interface{}) (trace.SpanContext, error) {
@@ -30,7 +30,7 @@ func Extract(format Format, carrier interface{}) (trace.SpanContext, error) {
 	switch format {
 	case FormatTextMap:
 		m := carrier.(TextMap)
-		err := m.ForEachKey(func(key string, value string) error {
+		err := m.ForeachKey(func(key string, value string) error {
 			switch key {
 			case HeaderSpanID:
 				if err := decodeAndCopyString(value, spanCtx.SpanID[:]); err != nil {
